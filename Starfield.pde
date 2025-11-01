@@ -61,6 +61,11 @@ void draw() {
     p.ay += G * odd.mass * dy * invR3;
   }
 
+  if (clickQueued) {
+    applyRadialImpulse(clickQueuedX, clickQueuedY);
+    clickQueued = false;
+  }
+
   if (odd != null) odd.show();
 
   for (int i = 1; i < particles.length; i++) {
@@ -78,11 +83,6 @@ void mousePressed() {
   clickQueued = true;
   clickQueuedX = mouseX;
   clickQueuedY = mouseY;
-
-  if (clickQueued) {
-    applyRadialImpulse(clickQueuedX, clickQueuedY);
-    clickQueued = false;
-  }
 }
 
 void applyRadialImpulse(float cx, float cy) {
