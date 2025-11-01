@@ -12,6 +12,10 @@ float minDist = 10.0;
 float randAngleMax = 0.35;
 float randScaleMin = 0.8, randScaleMax = 1.2;
 
+boolean clickQueued = false;
+int clickQueuedX = 0;
+int clickQueuedY = 0;
+
 void setup() {
   size(900, 600);
   noStroke();
@@ -71,7 +75,14 @@ void draw() {
 }
 
 void mousePressed() {
-  applyRadialImpulse(mouseX, mouseY);
+  clickQueued = true;
+  clickQueuedX = mouseX;
+  clickQueuedY = mouseY;
+
+  if (clickQueued) {
+    applyRadialImpulse(clickQueuedX, clickQueuedY);
+    clickQueued = false;
+  }
 }
 
 void applyRadialImpulse(float cx, float cy) {
